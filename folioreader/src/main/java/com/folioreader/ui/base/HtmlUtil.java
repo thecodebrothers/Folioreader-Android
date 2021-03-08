@@ -108,6 +108,15 @@ public final class HtmlUtil {
             case 4:
                 classes += " textSizeFive";
                 break;
+            case 5:
+                classes += " textSizeSix";
+                break;
+            case 6:
+                classes += " textSizeSeven";
+                break;
+            case 7:
+                classes += " textSizeEight";
+                break;
             default:
                 break;
         }

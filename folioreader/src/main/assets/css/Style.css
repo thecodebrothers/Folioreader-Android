@@ -227,6 +227,9 @@ html.textSizeTwo { font-size: 15px !important; }
 html.textSizeThree { font-size: 17px !important; }
 html.textSizeFour { font-size: 19px !important; }
 html.textSizeFive { font-size: 21px !important; }
+html.textSizeSix { font-size: 23px !important; }
+html.textSizeSeven { font-size: 25px !important; }
+html.textSizeEight { font-size: 27px !important; }
 
 h1 {
     font-size: 2rem;

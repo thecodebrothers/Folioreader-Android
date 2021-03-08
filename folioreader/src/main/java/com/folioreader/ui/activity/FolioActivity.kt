@@ -363,10 +363,10 @@ class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControlle
 
         // Update toolbar colors
         createdMenu?.let { m ->
-            UiUtil.setColorIntToDrawable(config.themeColor, m.findItem(R.id.itemBookmark).icon)
+//            UiUtil.setColorIntToDrawable(config.themeColor, m.findItem(R.id.itemBookmark).icon)
             UiUtil.setColorIntToDrawable(config.themeColor, m.findItem(R.id.itemSearch).icon)
             UiUtil.setColorIntToDrawable(config.themeColor, m.findItem(R.id.itemConfig).icon)
-            UiUtil.setColorIntToDrawable(config.themeColor, m.findItem(R.id.itemTts).icon)
+//            UiUtil.setColorIntToDrawable(config.themeColor, m.findItem(R.id.itemTts).icon)
         }
     }
 
@@ -388,10 +388,10 @@ class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControlle
 
         // Update toolbar colors
         createdMenu?.let { m ->
-            UiUtil.setColorIntToDrawable(config.nightThemeColor, m.findItem(R.id.itemBookmark).icon)
+//            UiUtil.setColorIntToDrawable(config.nightThemeColor, m.findItem(R.id.itemBookmark).icon)
             UiUtil.setColorIntToDrawable(config.nightThemeColor, m.findItem(R.id.itemSearch).icon)
             UiUtil.setColorIntToDrawable(config.nightThemeColor, m.findItem(R.id.itemConfig).icon)
-            UiUtil.setColorIntToDrawable(config.nightThemeColor, m.findItem(R.id.itemTts).icon)
+//            UiUtil.setColorIntToDrawable(config.nightThemeColor, m.findItem(R.id.itemTts).icon)
         }
     }
 
@@ -407,10 +407,10 @@ class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControlle
             menuInflater.inflate(R.menu.menu_main, menu)
 
             val config = AppUtil.getSavedConfig(applicationContext)!!
-            UiUtil.setColorIntToDrawable(
-                    config.currentThemeColor,
-                    menu.findItem(R.id.itemBookmark).icon
-            )
+//            UiUtil.setColorIntToDrawable(
+//                    config.currentThemeColor,
+//                    menu.findItem(R.id.itemBookmark).icon
+//            )
             UiUtil.setColorIntToDrawable(
                     config.currentThemeColor,
                     menu.findItem(R.id.itemSearch).icon
@@ -419,10 +419,10 @@ class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControlle
                     config.currentThemeColor,
                     menu.findItem(R.id.itemConfig).icon
             )
-            UiUtil.setColorIntToDrawable(config.currentThemeColor, menu.findItem(R.id.itemTts).icon)
+//            UiUtil.setColorIntToDrawable(config.currentThemeColor, menu.findItem(R.id.itemTts).icon)
 
-            if (!config.isShowTts)
-                menu.findItem(R.id.itemTts).isVisible = false
+//            if (!config.isShowTts)
+//                menu.findItem(R.id.itemTts).isVisible = false
         } catch (e: Exception) {
             Log.e("FOLIOREADER", e.message);
         }
@@ -440,66 +440,68 @@ class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControlle
             startContentHighlightActivity()
             return true
         }
-        else if(itemId == R.id.itemBookmark){
-            val readLocator = currentFragment!!.getLastReadLocator()
-            Log.v(LOG_TAG, "-> onOptionsItemSelected 'if' -> bookmark")
-
-                bookmarkReadLocator = readLocator;
-                val localBroadcastManager = LocalBroadcastManager.getInstance(this)
-                val intent = Intent(FolioReader.ACTION_SAVE_READ_LOCATOR)
-                intent.putExtra(FolioReader.EXTRA_READ_LOCATOR, readLocator as Parcelable?)
-                localBroadcastManager.sendBroadcast(intent)
-                val dialog = Dialog(this, R.style.DialogCustomTheme)
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                dialog.setContentView(R.layout.dialog_bookmark)
-                dialog.show()
-                dialog.setCanceledOnTouchOutside(true)
-                dialog.setOnCancelListener{
-                    Toast.makeText(this,
-                            "please enter a Bookmark name and then press Save",
-                            Toast.LENGTH_SHORT).show()
-                }
-                dialog.findViewById<View>(R.id.btn_save_bookmark).setOnClickListener {
-                    val name = (dialog.findViewById<View>(R.id.bookmark_name) as EditText).text.toString()
-                    if (!TextUtils.isEmpty(name)) {
-                        val simpleDateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
-                        val id =  BookmarkTable(this).insertBookmark(mBookId, simpleDateFormat.format(Date()), name, bookmarkReadLocator!!.toJson().toString());
-                        Toast.makeText(this,
-                                getString(R.string.book_mark_success),
-                                Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(this,
-                                "please Enter a Bookmark name and then press Save",
-                                Toast.LENGTH_SHORT).show()
-                    }
-                    dialog.dismiss()
-                }
-
-
-            return true
-        }
-        else if (itemId == R.id.itemSearch) {
-            Log.v(LOG_TAG, "-> onOptionsItemSelected -> " + item.title)
-            if (searchUri == null)
-                return true
-            val intent = Intent(this, SearchActivity::class.java)
-            intent.putExtra(SearchActivity.BUNDLE_SPINE_SIZE, spine?.size ?: 0)
-            intent.putExtra(SearchActivity.BUNDLE_SEARCH_URI, searchUri)
-            intent.putExtra(SearchAdapter.DATA_BUNDLE, searchAdapterDataBundle)
-            intent.putExtra(SearchActivity.BUNDLE_SAVE_SEARCH_QUERY, searchQuery)
-            startActivityForResult(intent, RequestCode.SEARCH.value)
-            return true
-
-        } else if (itemId == R.id.itemConfig) {
+//        else if(itemId == R.id.itemBookmark){
+//            val readLocator = currentFragment!!.getLastReadLocator()
+//            Log.v(LOG_TAG, "-> onOptionsItemSelected 'if' -> bookmark")
+//
+//                bookmarkReadLocator = readLocator;
+//                val localBroadcastManager = LocalBroadcastManager.getInstance(this)
+//                val intent = Intent(FolioReader.ACTION_SAVE_READ_LOCATOR)
+//                intent.putExtra(FolioReader.EXTRA_READ_LOCATOR, readLocator as Parcelable?)
+//                localBroadcastManager.sendBroadcast(intent)
+//                val dialog = Dialog(this, R.style.DialogCustomTheme)
+//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//                dialog.setContentView(R.layout.dialog_bookmark)
+//                dialog.show()
+//                dialog.setCanceledOnTouchOutside(true)
+//                dialog.setOnCancelListener{
+//                    Toast.makeText(this,
+//                            "please enter a Bookmark name and then press Save",
+//                            Toast.LENGTH_SHORT).show()
+//                }
+//                dialog.findViewById<View>(R.id.btn_save_bookmark).setOnClickListener {
+//                    val name = (dialog.findViewById<View>(R.id.bookmark_name) as EditText).text.toString()
+//                    if (!TextUtils.isEmpty(name)) {
+//                        val simpleDateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
+//                        val id =  BookmarkTable(this).insertBookmark(mBookId, simpleDateFormat.format(Date()), name, bookmarkReadLocator!!.toJson().toString());
+//                        Toast.makeText(this,
+//                                getString(R.string.book_mark_success),
+//                                Toast.LENGTH_SHORT).show()
+//                    } else {
+//                        Toast.makeText(this,
+//                                "please Enter a Bookmark name and then press Save",
+//                                Toast.LENGTH_SHORT).show()
+//                    }
+//                    dialog.dismiss()
+//                }
+//
+//
+//            return true
+//        }
+//        else if (itemId == R.id.itemSearch) {
+//            Log.v(LOG_TAG, "-> onOptionsItemSelected -> " + item.title)
+//            if (searchUri == null)
+//                return true
+//            val intent = Intent(this, SearchActivity::class.java)
+//            intent.putExtra(SearchActivity.BUNDLE_SPINE_SIZE, spine?.size ?: 0)
+//            intent.putExtra(SearchActivity.BUNDLE_SEARCH_URI, searchUri)
+//            intent.putExtra(SearchAdapter.DATA_BUNDLE, searchAdapterDataBundle)
+//            intent.putExtra(SearchActivity.BUNDLE_SAVE_SEARCH_QUERY, searchQuery)
+//            startActivityForResult(intent, RequestCode.SEARCH.value)
+//            return true
+//
+//        }
+        else if (itemId == R.id.itemConfig) {
             Log.v(LOG_TAG, "-> onOptionsItemSelected -> " + item.title)
             showConfigBottomSheetDialogFragment()
             return true
 
-        } else if (itemId == R.id.itemTts) {
-            Log.v(LOG_TAG, "-> onOptionsItemSelected -> " + item.title)
-            showMediaController()
-            return true
         }
+//        else if (itemId == R.id.itemTts) {
+//            Log.v(LOG_TAG, "-> onOptionsItemSelected -> " + item.title)
+//            showMediaController()
+//            return true
+//        }
 
         return super.onOptionsItemSelected(item)
     }
