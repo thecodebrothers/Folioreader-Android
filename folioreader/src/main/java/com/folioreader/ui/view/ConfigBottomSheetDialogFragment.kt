@@ -26,8 +26,12 @@ import com.folioreader.util.UiUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.jakewharton.rxbinding4.widget.SeekBarChangeEvent
+import com.jakewharton.rxbinding4.widget.userChanges
+import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.android.synthetic.main.view_config.*
 import org.greenrobot.eventbus.EventBus
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by mobisys2 on 11/16/2016.
@@ -44,6 +48,7 @@ class ConfigBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private lateinit var config: Config
     private var isNightMode = false
     private lateinit var activityCallback: FolioActivityCallback
+    private var seekBarDisposable: Disposable? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,7 +77,13 @@ class ConfigBottomSheetDialogFragment : BottomSheetDialogFragment() {
         initViews()
     }
 
+    override fun onDestroyView() {
+        seekBarDisposable?.dispose()
+        super.onDestroyView()
+    }
+
     override fun onDestroy() {
+        seekBarDisposable?.dispose()
         super.onDestroy()
         view?.viewTreeObserver?.addOnGlobalLayoutListener(null)
     }
@@ -291,18 +302,14 @@ class ConfigBottomSheetDialogFragment : BottomSheetDialogFragment() {
         )
         view_config_font_size_seek_bar.thumb = thumbDrawable
 
-        view_config_font_size_seek_bar.setOnSeekBarChangeListener(object :
-            SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        seekBarDisposable?.dispose()
+        seekBarDisposable = view_config_font_size_seek_bar.userChanges()
+            .debounce(300, TimeUnit.MILLISECONDS)
+            .subscribe { progress ->
                 config.fontSize = progress
                 AppUtil.saveConfig(activity, config)
                 EventBus.getDefault().post(ReloadDataEvent())
             }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar) {}
-        })
     }
 
     private fun setToolBarColor() {
