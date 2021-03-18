@@ -87,6 +87,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:max="7"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/view5"
         app:layout_constraintEnd_toStartOf="@+id/view_config_iv_label_font_big"
         app:layout_constraintStart_toEndOf="@+id/view_config_iv_label_font_small"
